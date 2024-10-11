@@ -98,3 +98,10 @@ resource "libvirt_domain" "vm" {
 output "vm_ips" {
   value = { for i, vm in libvirt_domain.vm : var.hostnames[i] => vm.network_interface.0.addresses[0] }
 }
+
+output "ALL_HOSTS" {
+  value = join(" ", [for vm in libvirt_domain.vm : vm.network_interface.0.addresses[0]])
+  description = "Space-separated list of all VM IPs for terminal usage"
+}
+
+
