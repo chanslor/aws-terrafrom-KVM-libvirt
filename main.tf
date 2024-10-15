@@ -88,7 +88,7 @@ resource "libvirt_domain" "vm" {
 
     connection {
       type        = "ssh"
-      user        = "mdc" # Change as needed
+      user        = "ec2-user" # Change as needed
       private_key = file("/home/mdc/.ssh/id_rsa")
       host        = self.network_interface.0.addresses[0]
     }
