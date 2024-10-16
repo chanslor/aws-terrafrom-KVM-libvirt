@@ -46,7 +46,6 @@ resource "libvirt_volume" "vm_disk" {
   pool   = "default"
   source = "/var/lib/libvirt/images/amazon/al2023-kvm-2023.5.20240916.0-kernel-6.1-x86_64.xfs.gpt.qcow2"
   format = "qcow2"
-  size   = var.disk_size * 1024
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" {
@@ -101,6 +100,7 @@ resource "libvirt_domain" "vm" {
   provisioner "remote-exec" {
     inline = [
       "sudo hostnamectl set-hostname ${var.hostnames[count.index]}",
+      "sudo yum -y install ansible",
       "sudo shutdown -r +1"
     ]
 
